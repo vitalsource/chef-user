@@ -20,6 +20,8 @@ data bag called `"users"` with an item like the following:
       "id"        : "hsolo",
       "comment"   : "Han Solo",
       "home"      : "/opt/hoth/hsolo",
+      "uid"       : 501,
+      "gid"       : 501,
       "ssh_keys"  : ["123...", "456..."]
     }
 

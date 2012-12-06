@@ -33,8 +33,8 @@ or a user to be removed:
     }
 
 The data bag recipe will iterate through a list of usernames defined in
-`node['users']` and attempt to pull in the user's information from the data
-bag item. In other words, having:
+`node['users']` (by default) and attempt to pull in the user's information
+from the data bag item. In other words, having:
 
     node['users'] = ['hsolo']
 
@@ -93,7 +93,7 @@ Or to reference the Git version:
 
     cat >> Cheffile <<END_OF_CHEFFILE
     cookbook 'user',
-      :git => 'git://github.com/fnichol/chef-user.git', :ref => 'v0.2.10'
+      :git => 'git://github.com/fnichol/chef-user.git', :ref => 'v0.3.0'
     END_OF_CHEFFILE
     librarian-chef install
 
@@ -105,7 +105,7 @@ plugin:
 
     gem install knife-github-cookbooks
     cd chef-repo
-    knife cookbook github install fnichol/chef-user/v0.2.10
+    knife cookbook github install fnichol/chef-user/v0.3.0
 
 ### <a name="installation-gitsubmodule"></a> As a Git Submodule
 
@@ -124,7 +124,7 @@ If the cookbook needs to downloaded temporarily just to be uploaded to a Chef
 Server or Opscode Hosted Chef, then a tarball installation might fit the bill:
 
     cd chef-repo/cookbooks
-    curl -Ls https://github.com/fnichol/chef-user/tarball/v0.2.10 | tar xfz - && \
+    curl -Ls https://github.com/fnichol/chef-user/tarball/v0.3.0 | tar xfz - && \
       mv fnichol-chef-user-* user
 
 ## <a name="recipes"></a> Recipes
@@ -185,11 +185,21 @@ resource can override this value. There are 2 valid states:
 
 The default is `true`.
 
-### <a name="attributes-data-bag"></a> data_bag
+### <a name="attributes-data-bag-name"></a> data_bag_name
 
 The data bag name containing a group of user account information. This is used
-by the `data_bag` recipe to use as a database of user accounts. The default is
-`"users"`.
+by the `data_bag` recipe to use as a database of user accounts.
+
+The default is `"users"`.
+
+### <a name="attributes-user-array-node-attr"></a> user_array_node_attr
+
+The node attributes containing an array of users to be managed. If a nested
+hash in the node's attributes is required, then use a `/` between subhashes.
+For example, if the users' array is stored in `node['system']['accounts']`),
+then set `node['user']['user_array_node_attr']` to `"system/accounts"`.
+
+The default is `"users"`.
 
 ## <a name="lwrps"></a> Resources and Providers
 

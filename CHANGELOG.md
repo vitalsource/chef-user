@@ -1,4 +1,25 @@
-## 0.2.13 (unreleased)
+## 0.3.1 (unreleased)
+
+
+## 0.3.0 (July 24, 2012)
+
+### Improvements
+
+* Rename data_bag attribute to data_bag_name which works with bag_config cookbook. ([@fnichol][])
+
+
+## 0.2.15 (July 24, 2012)
+
+### Improvements
+
+* Add :user_array_node_attr attribute which can override the location of the users' array in your node's attribute hash. ([@fnichol][])
+
+
+## 0.2.14 (July 24, 2012)
+
+### Improvements
+
+* Pull request [#11](https://github.com/fnichol/chef-user/pull/11), Issue [#10](https://github.com/fnichol/chef-user/issues/10): Groups management (not only gid). ([@smaftoul][])
 
 
 ## 0.2.12 (May 1, 2012)
@@ -71,3 +92,4 @@ The initial release.
 [@fnichol]: https://github.com/fnichol
 [@nathenharvey]: https://github.com/nathenharvey
 [@nessche]: https://github.com/nessche
+[@smaftoul]: https://github.com/smaftoul

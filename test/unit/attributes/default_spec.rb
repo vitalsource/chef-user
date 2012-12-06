@@ -8,7 +8,7 @@ describe 'User::Attributes::Default' do
   before do
     @node = Chef::Node.new
     @node.consume_external_attrs(ohai_data, {})
-    @node.from_file(File.join(File.dirname(__FILE__), %w{.. .. attributes default.rb}))
+    @node.from_file(File.join(File.dirname(__FILE__), %w{.. .. .. attributes default.rb}))
   end
 
   let(:ohai_data) do
@@ -92,8 +92,8 @@ describe 'User::Attributes::Default' do
       @node[attr_ns]['ssh_keygen'].must_equal "true"
     end
 
-    it "sets default data bag" do
-      @node[attr_ns]['data_bag'].must_equal "users"
+    it "sets default data bag name" do
+      @node[attr_ns]['data_bag_name'].must_equal "users"
     end
   end
 end

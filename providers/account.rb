@@ -29,7 +29,6 @@ def load_current_resource
 end
 
 action :create do
-  group_resource            :create
   user_resource             :create
   dir_resource              :create
   authorized_keys_resource  :create
@@ -37,9 +36,8 @@ action :create do
 end
 
 action :remove do
-  keygen_resource           :delete
-  authorized_keys_resource  :delete
-  dir_resource              :delete
+  # Removing a user will also remove all the other file based resources.
+  # By only removing the user it will make this action idempotent.
   user_resource             :remove
 end
 

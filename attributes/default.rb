@@ -40,3 +40,6 @@ default['user']['ssh_keygen']         = "true"
 
 default['user']['data_bag_name']        = "users"
 default['user']['user_array_node_attr'] = "users"
+
+default['user']['group_data_bag_name']   = "groups"
+default['user']['group_array_node_attr'] = "groups"

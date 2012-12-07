@@ -22,6 +22,7 @@ data bag called `"users"` with an item like the following:
       "home"      : "/opt/hoth/hsolo",
       "uid"       : 501,
       "gid"       : 501,
+      "groups"    : ["rebel","smuggler"], // Optional supplementary groups
       "ssh_keys"  : ["123...", "456..."]
     }
 
@@ -30,6 +31,19 @@ or a user to be removed:
     {
       "id"      : "lando",
       "action"  : "remove"
+    }
+
+The login and supplementary groups for this user can be created within a
+data bag called `"groups"` with items such as the following:
+  
+    {
+      "id"        : "hsolo",
+      "gid"       : 501
+    }
+  
+    {
+      "id"        : "rebel",
+      "gid"       : 1138
     }
 
 The data bag recipe will iterate through a list of usernames defined in
@@ -200,6 +214,22 @@ For example, if the users' array is stored in `node['system']['accounts']`),
 then set `node['user']['user_array_node_attr']` to `"system/accounts"`.
 
 The default is `"users"`.
+
+### <a name="attributes-group-data-bag-name"></a> group_data_bag_name
+
+The data bag name containing a group of user groups information. This is used
+by the `data_bag` recipe to use as a database of user groups.
+
+The default is `"groups"`.
+
+### <a name="attributes-group-array-node-attr"></a> group_array_node_attr
+
+The node attributes containing an array of groups to be managed. If a nested
+hash in the node's attributes is required, then use a `/` between subhashes.
+For example, if the groups' array is stored in `node['system']['groups']`),
+then set `node['user']['group_array_node_attr']` to `"system/groups"`.
+
+The default is `"groups"`.
 
 ## <a name="lwrps"></a> Resources and Providers
 

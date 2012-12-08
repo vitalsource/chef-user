@@ -318,6 +318,11 @@ this by installing the "libshadow-ruby1.8" package.
       <td><code>nil</code></td>
     </tr>
     <tr>
+      <td>groups</td>
+      <td>Supplimentary groups, if any, listed by groupname.</td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
       <td>home</td>
       <td>Home directory location.</td>
       <td><code>"#{node['user']['home_root']}/#{username}</code></td>

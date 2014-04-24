@@ -43,6 +43,7 @@ default['user']['manage_home']        = "true"
 default['user']['create_user_group']  = "true"
 default['user']['ssh_keygen']         = "true"
 default['user']['non_unique']         = "false"
+default['user']['manage_group']       = "create"
 
 default['user']['data_bag_name']        = "users"
 default['user']['user_array_node_attr'] = "users"

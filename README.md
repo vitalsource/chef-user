@@ -225,7 +225,7 @@ The default is `true`.
 
 ### <a name="attributes-on-group-missing"></a> on_group_missing
 
-This determins the result if a user is added to a group that does not exist.
+This determines the result if a user is added to a group that does not exist.
 Options are:
 
 <table>

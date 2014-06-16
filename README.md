@@ -223,6 +223,38 @@ resource can override this value. There are 2 valid states:
 
 The default is `true`.
 
+### <a name="attributes-on-group-missing"></a> on_group_missing
+
+This determins the result if a user is added to a group that does not exist.
+Options are:
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Action</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>create</td>
+      <td>Create the group.</td>
+      <td>Yes 
+    </tr>
+    <tr>
+      <td>ignore</td>
+      <td>Create the user as usual, but ignore the fact that he was requested to be added to this group.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>fail</td>
+      <td>Raise an Exception</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
 ### <a name="attributes-data-bag-name"></a> data_bag_name
 
 The data bag name containing a group of user account information. This is used

@@ -18,6 +18,7 @@
 #
 
 bag = node['user']['data_bag_name']
+on_group_missing = node['user']['on_group_missing']
 
 # Fetch the user array from the node's attribute hash. If a subhash is
 # desired (ex. node['base']['user_accounts']), then set:
@@ -37,7 +38,7 @@ Array(user_array).each do |i|
 
   user_account username do
     %w{comment uid gid home shell password system_user manage_home create_group
-        ssh_keys ssh_keygen non_unique}.each do |attr|
+        ssh_keys ssh_keygen non_unique }.each do |attr|
       send(attr, u[attr]) if u[attr]
     end
     action Array(u['action']).map { |a| a.to_sym } if u['action']
@@ -51,8 +52,20 @@ Array(user_array).each do |i|
   end
 end
 
+# the behaviour if a group does not exist depends on the on_group_missing attribute
+# we control this by setting the action taken to operate on the groups
+case on_group_missing
+when 'fail'
+  g_action = :modify
+when 'ignore'
+  g_action = :manage
+when 'create'
+  g_action = :create
+end
+
 groups.each do |groupname, users|
   group groupname do
+    action g_action
     members users
     append true
   end

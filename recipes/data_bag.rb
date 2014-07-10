@@ -68,5 +68,6 @@ groups.each do |groupname, users|
     action g_action
     members users
     append true
+    action node['user']['manage_group']
   end
 end

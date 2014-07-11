@@ -47,6 +47,6 @@ default['user']['manage_group']       = "create"
 
 default['user']['data_bag_name']        = "users"
 default['user']['user_array_node_attr'] = "users"
-default['user']['on_group_missing']     = "create"
 
-default[default['user']['user_array_node_attr']] = []
+default['user']['group_data_bag_name']   = "groups"
+default['user']['group_array_node_attr'] = "groups"

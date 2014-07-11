@@ -88,6 +88,18 @@ def normalize_bool(val)
   end
 end
 
+def group_resource(exec_action)
+  # avoid variable scoping issues in resource block
+
+  r = group new_resource.username do
+    group_name new_resource.username if new_resource.username
+    gid        new_resource.gid      if new_resource.gid
+    action    :nothing
+  end
+  r.run_action(:create) if @create_group && exec_action == :create
+  new_resource.updated_by_last_action(true) if r.updated_by_last_action?
+end
+
 def user_resource(exec_action)
   # avoid variable scoping issues in resource block
   my_home, my_shell, manage_home, non_unique = @my_home, @my_shell, @manage_home, @non_unique

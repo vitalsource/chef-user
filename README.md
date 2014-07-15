@@ -43,13 +43,17 @@ or a user to be removed:
       "action"  : "remove"
     }
 
-If you have a username containing a period, use a dash in the data bag item
-and set a `username` attribute:
-
+The login and supplementary groups for this user can be created within a
+data bag called `"groups"` with items such as the following:
+  
     {
-      "id"        : "luke-skywalker",
-      "username"  : "luke.skywalker",
-      "action"    : ["create", "lock"]
+      "id"        : "hsolo",
+      "gid"       : 501
+    }
+  
+    {
+      "id"        : "rebel",
+      "gid"       : 1138
     }
 
 The data bag recipe will iterate through a list of usernames defined in
@@ -202,6 +206,12 @@ Each resource can override this value. The are 2 valid states:
 
 The default is `false`.
 
+### <a name="attributes-manage-group"></a> manage_group
+
+The default action of group defined in `groups`.
+
+The default is `create`.
+
 ### <a name="attributes-create-user-group"></a> create_group
 
 Whether or not to to create a group with the same name as the user by default.
@@ -224,6 +234,38 @@ resource can override this value. There are 2 valid states:
 
 The default is `true`.
 
+### <a name="attributes-on-group-missing"></a> on_group_missing
+
+This determines the result if a user is added to a group that does not exist.
+Options are:
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Action</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>create</td>
+      <td>Create the group.</td>
+      <td>Yes 
+    </tr>
+    <tr>
+      <td>ignore</td>
+      <td>Create the user as usual, but ignore the fact that he was requested to be added to this group.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>fail</td>
+      <td>Raise an Exception</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
 ### <a name="attributes-data-bag-name"></a> data_bag_name
 
 The data bag name containing a group of user account information. This is used
@@ -239,6 +281,22 @@ For example, if the users' array is stored in `node['system']['accounts']`),
 then set `node['user']['user_array_node_attr']` to `"system/accounts"`.
 
 The default is `"users"`.
+
+### <a name="attributes-group-data-bag-name"></a> group_data_bag_name
+
+The data bag name containing a group of user groups information. This is used
+by the `data_bag` recipe to use as a database of user groups.
+
+The default is `"groups"`.
+
+### <a name="attributes-group-array-node-attr"></a> group_array_node_attr
+
+The node attributes containing an array of groups to be managed. If a nested
+hash in the node's attributes is required, then use a `/` between subhashes.
+For example, if the groups' array is stored in `node['system']['groups']`),
+then set `node['user']['group_array_node_attr']` to `"system/groups"`.
+
+The default is `"groups"`.
 
 ## <a name="lwrps"></a> Resources and Providers
 
@@ -327,6 +385,11 @@ this by installing the "libshadow-ruby1.8" package.
       <td><code>nil</code></td>
     </tr>
     <tr>
+      <td>groups</td>
+      <td>Supplimentary groups, if any, listed by groupname.</td>
+      <td><code>nil</code></td>
+    </tr>
+    <tr>
       <td>home</td>
       <td>Home directory location.</td>
       <td><code>"#{node['user']['home_root']}/#{username}</code></td>
@@ -375,6 +438,11 @@ this by installing the "libshadow-ruby1.8" package.
       <td>ssh_keygen</td>
       <td>Whether or not to generate an SSH keypair for the user.</td>
       <td><code>node['user']['ssh_keygen']</code></td>
+    </tr>
+    <tr>
+      <td>groups</td>
+      <td>An Array of groups to which to add the user.</td>
+      <td><code>[]</code></td>
     </tr>
   </tbody>
 </table>

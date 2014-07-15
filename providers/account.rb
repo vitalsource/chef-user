@@ -31,6 +31,7 @@ def load_current_resource
 end
 
 action :create do
+  group_resource            :create
   user_resource             :create
   dir_resource              :create
   authorized_keys_resource  :create

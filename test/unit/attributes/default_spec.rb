@@ -101,9 +101,5 @@ describe 'User::Attributes::Default' do
     it "sets default data bag name" do
       @node[attr_ns]['data_bag_name'].must_equal "users"
     end
-
-    it "sets on group missing" do
-      ["create", "ignore", "fail"].must_include @node[attr_ns]['on_group_missing']
-    end
   end
 end
